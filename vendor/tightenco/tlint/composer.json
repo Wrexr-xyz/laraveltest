@@ -1,0 +1,61 @@
+{
+    "name": "tightenco/tlint",
+    "description": "Tighten linter for Laravel conventions",
+    "homepage": "https://github.com/tighten/tlint",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Logan Henson",
+            "email": "logan@loganhenson.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "illuminate/view": "*",
+        "nikic/php-parser": "^5.0",
+        "symfony/console": "^6.1||^7.0",
+        "symfony/process": "^6.1||^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6",
+        "spatie/ray": "^1.37",
+        "symfony/var-dumper": "^6.1",
+        "tightenco/duster": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tighten\\TLint\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "exclude-from-classmap": ["tests/fixtures"]
+    },
+    "bin": [
+        "bin/tlint"
+    ],
+    "scripts": {
+        "update-fixture-app": [
+            "rm -rf ./tests/fixtures/laravel",
+            "composer create-project laravel/laravel ./tests/fixtures/laravel",
+            "echo '{\"preset\":\"laravel\"}' > ./tests/fixtures/laravel/tlint.json",
+            "rm -rf ./tests/fixtures/laravel/composer.lock"
+        ],
+        "lint": [
+            "vendor/bin/duster lint"
+        ],
+        "fix": [
+            "vendor/bin/duster fix"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
